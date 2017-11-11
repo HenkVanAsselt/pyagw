@@ -1,0 +1,59 @@
+#!/bin/sh
+echo "Installing aprsd as a program"
+APRSDIR=/home/aprsd2
+SOURCEDIR=$PWD
+APRSD=$PWD'/aprsd'
+INIT_TNC=$PWD'/INIT.TNC'
+RESTORE_TNC=$PWD'/RESTORE.TNC'
+WELCOME_TXT=$PWD'/welcome.txt'
+APRSD_CONF=$PWD'/aprsd.conf'
+USER_DENY=$PWD'/user.deny'
+#
+if [ ! -d $APRSDIR  ]
+then
+ echo "Creating $APRSDIR"
+ mkdir $APRSDIR
+fi
+echo "Copying $APRSD to $APRSDIR"
+cp aprsd $APRSDIR
+#
+cd $APRSDIR
+if [ ! -f "INIT.TNC" ]
+then
+ echo "Copying $INIT_TNC to $APRSDIR"
+ cp $INIT_TNC .
+fi
+# 
+if [ ! -f "RESTORE.TNC" ]
+then
+  echo "Copying $RESTORE_TNC to $APRSDIR "
+  cp $RESTORE_TNC .
+fi
+#
+if [ ! -f "welcome.txt" ]
+then
+  echo "Copying $WELCOME_TXT to $APRSDIR"
+  cp $WELCOME_TXT .
+fi
+if [ ! -f "user.deny" ]
+then
+  echo "Copying $USER_DENY to $APRSDIR"
+  cp $USER_DENY .
+fi
+#
+if [ ! -f "aprsd.conf" ]
+then
+  echo "Copying $APRSD_CONF to $APRSDIR"
+  cp $APRSD_CONF .
+fi
+cd $SOURCEDIR
+#
+#
+echo "Install complete"
+echo "To start change dir to /home/aprsd2 and enter ./aprsd"
+echo "To stop hit ctrl-C or q"
+echo "To allow users other than root to run it you must change"
+echo "the owner and/or mode of /home/aprsd2 and all the files in it."
+echo "Linux user/pass checking only works if run as root."
+exit 0
+

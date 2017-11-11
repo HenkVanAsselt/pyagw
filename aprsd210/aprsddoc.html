@@ -1,0 +1,1227 @@
+<HTML>
+<HEAD>
+<TITLE>
+WA4DSY Linux APRS server docs. 2.1.0 June 1999
+</TITLE>
+</HEAD>
+<BODY bgcolor="#f0f0f0": text="#000000"> 
+<HR>
+
+<p>
+<H2>WA4DSY Linux APRS server docs. 2.1.0 June 22 1999</H2>
+
+
+Note to RedHat 6.0 users:  You will need to compile the code get a working
+executable for your system.  Just type "make" in the aprsd distribution directory.
+<p>
+<h3>Index</h3>
+<a href="#Revisions"> Revisions </a> <br>
+<a href="#legal"> Legal Stuff </a><br>
+<a href="#description"> Program description</a><br>
+<a href="#files"> aprsd Files </a><br>
+<a href="#filelocations"> File Locations </a><br>
+<a href="#daemon"> Installing as a daemon </a><br>
+<a href="#running"> Starting and Stopping the Server</a><br>
+<a href="#program"> Installing as a user program </a><br>
+<a href="#configfile"> Server configuration file aprsd.conf </a><br>
+<a href="#comports"> Com port configuration </a><br>
+<a href="#shutdown"> Server shutdown </a> <br>
+<a href="#remotetnc"> Remote TNC sysop access </a><br>
+<a href="#logfiles"> Log Files </a><br>
+<a href="#stsm"> Station to Station Messages </a><br>
+<a href="#msgacks"> Message Acks </a><br>
+<a href="#validate">User Validation </a><br>
+<a href="#abuse"> Filtering abusive users </a><br>
+<a href="#inet2rf"> Selective Internet to RF gating </a><br>
+<a href="#mic_e"> Mic-E packet translation </a><br>
+<a href="#aea_tapr"> AEA to TAPR conversion </a><br>
+<a href="#udp"> UDP input port </a><br>
+<a href="#queries"> The ?IGATE? Query </a><br>
+<a href="#java"> Java Applets </a><br>
+
+<a href="#bugs"> Known Bugs </a> <br>
+
+<hr>
+
+
+<a name="Revisions">  
+<h3>REVISIONS 2.1.0 Pre-Releases 1 to 7<br> 6-20-1999</h3>
+<ul>
+<li> Fixed the code so it runs properly as a daemon.  
+   See added function "daemonInit()" in code.
+   Also modified aprsd.init .
+   To run as a daemon enter: ./aprsd -d 
+   To run as a program enter: ./aprsd <p>
+   
+
+<li> Added logic to handle MD5 password encryption in the validate module.
+   Now it works with RedHat 6.0 shadowed MD5 passwords.<p>
+   
+<li> Added "#include &#60errno.h&#62" statements in history.cpp and aprsd.cpp.
+   Now it now compiles under RedHat 6.0. <p>
+   
+<li> Changed logic so messages sent on RF also are sent to other Internet users.
+   Needed to do this so messages to wild card groups such as "SCOUTS"
+   go both to RF and the remainder of the users and igates. <p>
+   
+<li> New Feature: The server now responds to the "?IGATE?" query. <p>
+
+<li>New Feature: You can put system abusers in the "user.deny" file and
+   deny access to  RF or prevent them from logging on. <p>
+   
+<li>New Feature: You can configure the server to ignore  packets which were
+transmitted from your own TNC.  The previous versions always igated
+your own TNCs packets. Use the command line "igateMyCall no" in aprsd.conf
+to turn off igateing of your own TNCs packets. <p>
+   
+<li>Fixed bug that caused the history list dump to abort and disconnect user
+   after about 700 items had been sent. <p>
+   
+<li> Fixed two bugs in aprsString and raw-user send code.  Now mic_e packets
+   come out in raw format on port 14580 . <p>
+   
+<li>Changed the servers status messages to the new format. <br>
+    eg: "aprsdATL>APRS,TCPIP*::USERLIST :Verified user W4HAM logged on using MacAPRS 3.2.0."<br>
+    Note the extra colon after TCPIP* and the lack of a message number on the end
+    to indicate we don't expect an ack. <p>
+    
+<li>Fixed speed related problem in SendToAllClients() function that caused
+    overflows of the Internet send queue.  The server can now handle many
+    more users at higher data rates. <p>
+
+ <li>Added command "TncPktSpacing" to the aprsd.conf file. This command takes
+    one parameter which is the number of milliseconds between packets sent to the
+    TNC.  Queued packets to be transmitted will be spaced out at least by
+    this number of milliseconds.  The default is 1500 (1.5 seconds). <p>
+
+
+
+   
+ 
+</ul>
+
+<p>
+<h3> 2.0.9 changes</h3>
+Changed the validate code so validate is compiled into the
+aprsd executable instead of being a separate program.  This
+improves both speed and security.
+
+ <p>
+ <h3>2.0.8</h3>
+<ul>
+<li> 2.0.8 Fixed a security problem with logons. It was possible
+   in earlier versions to "be creative" with user and password
+   strings to pass commands to a Linux shell.
+<li> Cleaned up some serial interface code which may 
+   have been causing trouble with mic_e packets on some systems.
+<li> New Feature: Added msgdest2rf keyword in aprsd.conf file.  See below for details. 
+</ul>
+
+
+<p>
+<h3> ** IF YOU ARE UPGRADING FROM 2.0.6 ** </h3>
+The new INSTALL scripts, INSTALLDAEMON and INSTALLPGM
+have been enhanced to look for existing aprsd configuration files
+and not overwrite them. You should save copies of these files anyway
+in case something goes wrong. <br>
+<ul>
+<li>welcome.txt
+<li>aprsd.conf
+<li>INIT.TNC
+<li>RESTORE.TNC
+</ul>
+
+</a>
+
+
+
+<hr>
+<a name="legal">
+<h3>LEGAL STUFF </h3>
+
+Copyright 1997-1999 by Dale A. Heatherington, WA4DSY<br>
+email: wa4dsy@wa4dsy.radio.org <br>
+
+<hr>
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version. <p>
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.  <p>
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA <p>
+    
+<hr>
+
+APRS is a registered trademark, and APRS protocols are copyrighted
+by  Bob Bruninga, WB4APR.  The owner reserves all rights and
+privileges to their use.<p>
+
+HAMS may apply the APRS formats in the TRANSMISSION of position, 
+weather, and status packets.  However, the author reserves the 
+ownership of these protocols for exclusive commercial application and for 
+all reception and plotting applications. Other persons desiring to include 
+APRS RECEPTION in their software  for sale within or outside of the 
+amateur community will require a license from the author.  Also 
+TRANSMISSION of APRS protocols in any NON-AMATEUR commercial application 
+or software will require a license from the author. <p>
+
+Bob Bruninga, WB4APR<br>
+115 Old Farm CT<br>
+Glen Burnie, MD 21060<p>
+</a>
+  
+ <hr>
+
+<a name="description">
+<h3>DESCRIPTION </h3>
+This is an APRS Internet server program.  It acts as a gateway between
+the Internet and a local ham VHF APRS packet network. It is interfaced to
+directly to a TNC via one of the PC serial ports and does not use the Linux
+ax25 sockets interface. <p>
+
+It has only been tested on RedHat Linux 5.1 , 5.2, 6.0 and Mandrake 5.3.  It requires libstdc++ 2.8.0 or later
+to run.  It will NOT run on RedHat 4.2. <p>
+
+The program gets data from a TNC connected to a serial port
+and sends it to all clients who have connected to any of several user
+defined tcp ports. Some defaults are 1313, 10151, 10152 and 14579.	 
+It was designed to duplicate most if not all of the functionality of
+APRServe, a Macintosh APRS server designed and coded by Steve Dimse, K4HG.<br>
+<a href="http://www.aprs.net/aprserve.dcc.html"> See http://www.aprs.net/aprserve.dcc.html</a> <br>
+It can also gate data coming from the Internet to the TNC for
+transmission on the local VHF RF network.<p>
+
+
+<h4>CLIENT SOFTWARE</h4>
+Users can connect using several client programs such as Mac/WinAPRS,
+javAPRS and Telnet.  The logon protocol used by Mac/WinAPRS is recognized
+and properly handled giving registered users the privilige of sending
+3rd party messages into the local VHF network. <p>
+
+Clients can use telnet to watch TNC data.<br>
+eg: telnet www.wa4dsy.radio.org 14579 <br>
+If raw TNC data is desired port 14580 can be used.<p>
+
+Scripts written in languages such as perl can connect to the
+server and interact with the data. A UDP port is provided to simplify
+injection of data into the aprs stream by scripts. <p>
+
+The system operator can use telnet to monitor the server status
+by connecting to any port and enter entering his Linux user name, password
+and entering "monitor" for the version field.  Also he can enter remote
+sysop mode and gain direct control of the TNC. <br>
+eg: user WA4ZZZ pass 12345 vers monitor
+<p>
+
+
+<h4>HISTORY LIST</h4>
+A history of data from the TNC and IGATES going back 30 minutes (time also user defined) is kept in
+memory and delivered to each user when he connects.  This
+history data is filtered to remove duplicates and certain
+other unwanted information.  Duplicate data are detected by looking
+for any packets with the same data and source call sign that have
+been seen in the last 30 seconds. When duplicates are found they are discarded.<p>
+
+There is also a quota system to further reduce the quanity of data in the history list.
+Each AX25 source call sign is allowed three packets in the history
+list.  One position report, one weather report and one "other".	Only the
+most receint of each type is retained. <p>
+
+
+
+<hr>
+</a>
+
+<a name="files">
+
+<h3>FILES</h3>
+<pre>
+
+aprsd				The APRS server executable
+
+user.deny			List of users with restrictions placed on them
+welcome.txt			This file is sent to users when they connect
+INIT.TNC			This file is read into the TNC when the server starts
+RESTORE.TNC			This file is read into the TNC when the server closes
+history.txt			Created by the server when it closes to save the history buffer.
+				Also updated every 10 minutes during operaton.
+				It's also is read into the servers history list when  server starts.
+
+Log Files:
+
+aprsd.log			Created by server to log all user connections
+stsm.log			Station to station msgs gated to RF
+udp.log				Data from the UDP port logged here
+rf.log				Data from our TNC after being digipeated
+
+
+Install files:
+
+INSTALLDAEMON			Installation script for running as a daemon 
+INSTALLPGM			Installation script for running as a program
+REMOVE				UnInstall script - deletes /home/aprsd2/*
+
+</pre>
+
+</a>
+
+<hr>
+
+
+
+<a name="filelocations">
+<h3>
+FILE LOCATIONS
+</h3>
+<pre>
+/home/aprsd2
+	aprsd
+        user.deny
+	welcome.txt
+	INIT.TNC
+	RESTORE.TNC
+	aprsd.log
+	stsm.log
+	rf.log
+	udp.log
+	aprsd.conf
+	history.txt
+
+
+/etc/rc.d/init.d
+	aprsd.init
+
+/etc/rc.d/rc3.d
+	link to aprsd.init
+
+/etc/rc.d/rc5.d
+	link to aprsd.init
+
+/etc/rc.d/rc6.d
+	link to aprsd.init
+
+
+ </pre>
+ 
+ <hr>
+ </a>
+
+<a name="daemon">
+
+<h3>INSTALLING AS A DAEMON</h3
+<em> (** also see Installing as a Program below **) </em><br>
+<ul>
+<li>Login as root.
+
+<li>Copy the archive into your home directory.
+
+<li>Issue the following command:
+
+<li>tar zxvf aprsd210.tar.gz
+
+<li>Of course you already did it or you wouldn't be reading this ;-)
+
+<li>cd aprsd210
+
+<LI>make  (required for RedHat 6 but ok for any version)
+
+<li>./INSTALLDAEMON
+
+<li>cd /home/aprsd2
+
+<li>Now make any changes you may require to these files (in /home/aprsd2/): <br>
+Note: The install program will not overwrite these if they already exist.
+ <ul>   
+   <li> aprsd.conf
+   <li> user.deny
+   <li> welcome.txt
+   <li>INIT.TNC
+   <li>RESTORE.TNC
+ </ul>
+</ul>    
+
+
+Make sure the "mycall" line in aprsd.conf
+matches the "MYCALL" parameter in the INIT.TNC file.<p>
+
+<ul>
+</ul>
+
+At this point INSTALL has created a directory
+/home/aprsd2/ and copied several files
+into it.  It also has copied aprsd.init 
+to various /etc/rc.d/ directories. <p>
+
+<hr>
+</a>
+
+
+ 
+
+<a name="running">
+<h3>Starting and Stopping the Server</h3>
+
+After you run INSTALL the server will start when the machine is booted up.
+To start without rebooting cd to /etc/rc.d/init.d and run the aprsd.init 
+script with "start" as the parameter.  eg:  ./aprsd.init start <p>
+
+You can also start it as a daemon by using the -d option. eg: ./aprsd -d <p>
+
+The serial device for TNC data and tcp port numbers are set in the
+/home/aprsd2/aprsd.conf file.  You can edit this file in the directory you used
+to uncompress the distribution files then run INSTALL to make the
+changes effective.  INSTALL also will copy the distribution welcome.txt,
+INIT.TNC and RESTORE.TNC to /home/aprsd so be sure you make changes to
+these in the distribution directory before running INSTALL. <p>
+
+
+To stop the server go to the /etc/rc.d/init.d directory and
+enter "./aprsd.init stop".  To restart enter "./aprsd.init start" . <p>
+<hr>
+
+<h3>RUNNING AS A PROGRAM </h3>
+
+The server can be run as a regular program for testing purposes or if you
+don't want it to auto start when Linux boots. <p>
+
+First, stop the aprsd daemon by entering: /etc/rc.d/init.d/aprsd.init stop .<p>
+
+It can be re-started as a user program changing to the /home/aprsd2 directory
+and typing its name " ./aprsd "  Note: you will need to be logged on
+as root unless your user name has write priviliges on the directory /home/aprsd2
+and all the files in it.<p>
+
+If you want to be able to log on as remote sysop and take control of the
+TNC you will need to add a "tnc" group to the /etc/group file.
+See "REMOTE TNC SYSOP ACCESS" below for more details.<p>
+
+ <hr> 
+ </a>
+ 
+<a name="program">      
+
+<h3>INSTALLING AS A PROGRAM </h3>
+    (You may want to do this first to try it out)<p>
+
+<ul>
+<li>Login as root.
+
+<li>Copy the archive into your home directory.
+
+<li>Issue the following commands:
+<ul>
+
+<li>tar zxvf aprsd210.tar.gz
+<li>cd aprsd210
+<LI>make  (required for RedHat 6 but ok for any version)
+<li>./INSTALLPGM
+<li>cd /home/aprsd2
+</ul>
+   Now make any changes you may require to welcome.txt, INIT.TNC, RESTORE.TNC
+   and aprsd.conf to reflect your call sign, location and TNC paramters.
+<br>
+Note: The install program will not overwrite these if they already exist.
+
+
+</ul>
+The program and configuration files are copied to /home/aprsd2.
+You will need to change the permissions on /home/aprsd2 and all the files
+in it if you want to run it as a user other than root.  The Linux password
+validator will only work if aprsd run as root.
+
+<a name="commandline">
+<h3>COMMAND LINE PARAMETERS</h3>
+
+The server has two command line arguments, the name of the server configuration
+file and one switch "-d" for daemon mode.  If no file name is provided the server
+ will use /home/aprsd2/aprsd.conf . <p>
+
+While running, once each minute this server will emit a status message to the console.
+Also, it tells you each time it sends out a packet and to how many users.  It
+also shows you what it's sending to the TNC.  One field in the status message
+is aprsString Objs.  This is a debugging tool to help find memory leaks.  It should
+be no more than 1 or 2 higher than the History items field. Sometimes it will
+read much higher but should return to a difference of 1 or 2 within a minute or so.<p>
+
+Ctrl-C or "q" will shut down the server in an
+ orderly manner and save the current history
+list (last 30 mins of select received data) to disk.<p>
+
+<hr>
+</a>
+
+
+<a name="configfile">
+<h3>SERVER CONFIGURATION FILE </h3>
+
+The default configuration file is /home/aprsd2/aprsd.conf.  The file is read
+on start up.  Lines starting with "#" are comments and are ignored.  Documentation
+on syntax and key words are in the file.  More information on the tcpip ports used
+by the server can be found in <a href="ports.html"> ports.html</a> <p>
+
+<h4>igateMyCall</h4>
+The "igateMyCall &#60yes|no&#62" command is new in version 2.1.0 . If the "yes"
+option is chosen packets sent from your TNC and digipeated will be igated to 
+the Internet.  If you have a beacon sending the same position as in your
+NetBeacon both will be overlayed and unreadable on the users map.  If you must
+igate your own TNC beacons you can offset the location of one of them
+about .02 north or south so they show as separate objects.<p>  
+
+<hr>
+<h3>
+SAMPLE CONFIGURATION FILE
+</h3>
+
+<pre>
+#aprsd 2.1.0 server configuration file
+#Lines starting with "#" are comments and are ignored
+#Key words such as "mycall" and "maxusers" are NOT case sensitive.
+#MyCall is the same as mycall.
+#
+#*** There is no error checking so be careful ******
+#
+#*** To become part of the international APRS network
+#*** you first must have a full time internet connection
+#*** with a static ip address. Contact Steve Dimse
+#*** k4hg@tapr.org to get your domain name or ip address
+#*** installed in his master server so it can connect to
+#*** your aprsd server and read your aprs data stream.
+#
+#Servercall is the ax25 source call used in packets
+#sent from the server to Internet users. (9 chars max)
+#
+servercall aprsdATL
+#
+MyCall N0CLU
+MyLocation Atlanta_GA
+#This email address will be sent in replies to ?IGATE? queries.
+MyEmail sysop@myisp.net
+MaxUsers 25
+#
+#
+#Define beacon text. The server will supply the ax25 path header.
+#The first number after "NetBeacon" is the time interval in minutes.
+#Comment out the line or set time interval to 0 to disable beacon.
+#The rest of the line can be any aprs protocol conforming packet.
+#<a href="http://www.aprs.net/doc/dos/PROTOCOL.HTM"> See PROTOCOL.HTM</a> for protocol info. 
+#
+NetBeacon 10 !3405.31N/08422.46WI Atlanta Linux APRS Server
+#
+#Define the TNC beacon. The TNC will supply the ax25 path header.
+#It's optional and you may use the TNC BTEXT in the INIT.TNC file instead.
+#
+#TncBeacon 15 !3405.31N/08422.46WI Atlanta Linux APRS Server
+#
+#
+#Send 2 extra message acks is addition to each received ack to TNC
+#Range 0 to 9
+ackrepeats 2
+#
+#Send extra acks at 5 second intervals
+#Range 1 to 30 seconds
+ackrepeattime 5
+#
+#Set history list items to "expire" in 30 minutes
+expire 30
+#
+#Define the TNC serial port (9600 baud)
+#Note: This device must have write permissions
+#If undefined all TNC related functions are disabled.
+tncport /dev/ttyS0
+#
+#Allow Internet to RF message passing.
+rf-allow yes
+#
+#Set the minimum time between TNC transmit packets in milliseconds
+TncPktSpacing 1500
+#
+# Disallow packets transmitted from our own TNC from 
+# being igated back to the Internet after being digipeated.
+igateMyCall no
+#
+#igate connection definitions
+#usage: igate &#60host name&#62 &#60host port&#62 &#60optional user name&#62 &#60optional user password&#62
+#Note: Use user/pass option ONLY if you intend to feed data TO the igate.
+#      Usually the igate will connect to you and read your data.
+#
+igate www.aprs.net 23
+#igate www.aprs.net 1313  
+#igate ilnorth.aprs.net 1313
+#igate sanfran.aprs.net 10148
+#igate kb2ear.aprs.net 14580
+#igate nashville.aprs.net 14579
+#igate socal.aprs.net 14579
+#
+#Use the following format (host port user pass) only to send data to another server.
+#You need a user name and password for the server host system.
+#The password "xyzzy" is not valid.
+#
+#igate www.aprs.net 23 WA4DSY xyzzy
+#igate www.wa4dsy.radio.org 14579 WA4DSY xyzzy
+#
+#Define server listen ports <a href="ports.html">(see ports.html)</a>
+rawtncport 14580
+localport 14579
+mainport 10151
+mainport-nh 10152
+linkport 1313
+msgport 1314
+udpport 1315
+#
+#define trusted users of the UDP port.
+#usage: trust &#60ip address&#62  &#60subnet mask&#62
+#trust 208.148.145.151
+#trust 208.148.145.144 255.255.255.240
+#
+#Selected call signs which are always gated to RF
+#if they are not seen locally. All packets from
+#these are gated in real time. Do not use unless
+#you really need real time data.  Consider posit2rf below.
+#They are case sensitive! Use upper case. Up to 64 may be defined.
+#gate2rf K4HG-8 N4NEQ-9 
+#gate2rf W7LUS-14
+#
+#Call signs of stations whose posits are gated
+#to RF every 15 minutes.  Only posit packets are
+#gated.  Posits are taken from the history list.
+#They are case sensitive! Use upper case.
+posit2rf K4HG-8 N4NEQ-9 
+#posit2rf W7LUS-14
+#
+#Define a list of message destination call signs or aliases 
+#to gate to RF full time.  Note: the CQGA example 
+#below is CQ GA (Georgia). Edit to suite your locale.
+#Up to 64 of these may be defined. They are case sensitive.
+#
+msgdest2rf SCOUTS KIDS CQGA
+#
+#end
+</pre>
+<hr> 
+</a>
+
+
+<h3>IGATE PORTS </h3>
+
+
+The "igate" commands in the configuration file above define the distant APRServe and
+other IGATES you want to establish connections to.  You may choose zero or more.  Duplicate
+data will not be relayed to your users.  Connections which drop will be reestablished
+automatically.  After a connection drops it will attempt to reconnect after 1 minute.
+If that attempt fails it will try again in 2 minutes. The time will double each time
+until it hits 16 minutes.  Then it will retry forever at 16 minute intervals.
+These connection attempts appear in the aprsd.log file. <p>
+
+Which ports on the distant igates do you connect to?  There are two ways to go.
+You can connect to the ports which emit only local data (APRServe 1313 or 
+aprsmon 14580) or you can choose one reliable server and connect
+to the port which supplies the complete data stream (APRServe 23 or aprsd 10152).
+In either case it should be a port which doesn't do the history file dump when
+you first connect.   Connecting to local ports on ALL other servers will be more
+reliable since a single failure won't cut off all your external data. <p>
+
+This server has a port (1314) which only supplies station to station messages and corresponding
+posits.  Other servers which will be used ONLY to relay 3rd party station to station
+messages to their local VHF network may want to connect to this port to greatly
+reduce the amount of data on their tcpip connection. <p>
+
+
+<hr>
+</a>
+
+
+<a name="comports">
+<h3>
+COM PORT CONFIGURATION
+</h3>  	
+The TNC COM port is fixed at 9600 baud, 1 stop bit, 8 data bits and no parity.
+Be sure the TNC is configured to these parameters.  You can use the terminal
+program "minicom" that comes with Linux to prepare the TNC.  Make sure the
+TNC is NOT in KISS mode.<p>
+ 
+Be sure the device ( dev/ttyS* ) has the proper read/write permissions or the
+server will not be able to access it. <p>
+
+Root can set the serial port so it can be written to by anyone
+with the following command: <p>
+
+	chmod ugo+w /dev/ttyS0 <p>
+	
+
+NOTE: If you don't define a device for the com port in the aprsd.conf
+file all TNC related functions in the server are disabled.<p>
+
+
+
+<hr>
+
+</a>
+
+<a name="shutdown">
+<h3>SHUTTING DOWN THE SERVER WHEN RUNNING AS A PROGRAM</h3>
+
+
+Ctrl-C or "q" will shut down the server in an
+ orderly manner and saves the current history
+list (last 30 mins of received TNC data) to disk.<p> 
+
+Ctrl-\ shuts down without saving anything.<p>
+
+Note: The server also saves the history list (history.txt) to disk 
+      every 10 minutes automatically. <p>
+
+
+
+
+<hr>
+
+
+</a>
+
+<a name="remotetnc">
+<h3>
+REMOTE TNC SYSOP ACCESS - (ESC)
+</h3>
+
+You may telnet to the APRS server and connect to the TNC for the purpose
+of changing parameters or even sending data out over the radio channel.
+Use the (ESC) key from a telnet session to enter remote access mode.
+Some Telnet programs send data a line at a time so the (ESC) character
+will not be sent until you hit the (Enter) key. <p>
+  
+You'll be prompted for your user name and password.  
+These must match an entry in the Linux password file. In other
+words, a valid Linux login user/password.  If the password is incorrect
+remote sysop mode will be exited. The user must	also
+belong to the "tnc" group.  This group must be created
+in the /etc/group file. Here is an example line: <p>
+
+tnc::102:root,wa4dsy,bozo <p>
+
+In this example users root,wa4dsy and bozo are assigned to the tnc group.<p>
+
+
+
+After you have logged on, everything you type goes to the TNC and
+all TNC output data goes only to you.  The TNC is effectivly disconnected
+from all other internet users.  Hit control-C to get the TNC into command mode. <p>
+
+ 
+To exit remote TNC access hit the <ESC> key.  You may also need to
+hit <Enter> if your Telnet program sends data a line at a time.	Some
+Telnet programs can be configured for character at a time mode.  Check
+your documentation for details.<p>
+
+REMEMBER TO ENTER THE TNC "K" COMMAND BEFORE YOU EXIT.<p>
+
+To disconnect hit ctrl-D . <p>
+
+<hr>
+
+</a>
+
+
+<a name="logfiles">
+<h3>
+LOG FILES
+</h3>
+
+<pre>
+/home/aprsd2/aprsd.log	User logons and logoffs and some system activity msgs.
+
+/home/aprsd2/stsm.log	Station to station 3rd party messages sent on RF.
+
+/home/aprsd2/udp.log	Record of data entering from the UDP port.
+
+/home/aprsd2/rf.log     Record our own packets heard on RF by the TNC. (After being digipeated)
+
+</pre>
+
+These can be viewed in real time with: tail -f /home/aprsd2/aprsd.log
+or the name of the log you want to monitor. <p>
+
+You can also use the "less" program to view it.
+After entering "less /home/aprsd2/aprsd.log" you type "F" to
+follow it in real time.  Type ctrl-C to exit "F" mode. <p>
+
+All 3rd party station to station messages relayed from the Internet 
+to RF are logged in /home/aprsd2/stsm.log <p>
+
+3rd party formatted packets received by the TNC will never
+be sent anywhere. <p>
+
+Data from the UDP port are logged in /home/aprsd2/udp.log .<p>
+
+All data heard on RF with the "MYCALL" callsign with be logged
+in rf.log .  This feature lets you see what you have sent out
+on RF if you are being digipeated by someone else. <p>
+
+To keep the log files from getting too large they need to 
+be rotated on a regular basis.  Add the following to your
+/etc/logrotate.conf file.  Log files will be rotated 
+daily or weekly and the oldest deleted after 4 rotations.
+Feel free to modify the schedule to suit your needs. <p>
+
+<pre>
+
+/home/aprsd2/aprsd.log {
+        weekly
+        rotate 4
+}
+
+/home/aprsd2/stsm.log {
+        daily
+        rotate 4
+}
+/home/aprsd2/udp.log {
+        daily
+        rotate 4
+}
+/home/aprsd2/rf.log {
+        daily
+        rotate 4
+}
+
+</pre>
+<hr>
+
+
+I use the "joe" editor to edit my configuration files.  It isn't
+installed by default so you may need to install it from the
+cdrom.  To install mount the CD 
+and do rpm -iv /mnt/cdrom/RedHat/RPMS/joe-2.8-13.i386.rpm .
+
+<hr>
+
+</a>
+
+<a name="stsm">
+<h3>
+
+STATION TO STATION MESSAGES
+</h3>
+
+This program will reformat and relay aprs 
+station to station messages from the Internet 
+to the TNC for RF transmission under the following
+conditions. <p>
+
+It came from a logged on verified registered user. <p>
+
+ and <p>
+ 
+ The originator was not seen on the TNC RF data stream
+ in the past 30 minutes.<p>
+ 
+ and   <p>
+ 
+ The destination HAS been seen on the TNC RF data stream
+ in the past 30 minutes and doesn't have "GATE*" in his path
+ and has been repeated less than 3  times.  <p>
+ 
+ and <p>
+
+ The line "rf-allow yes" is in the /home/aprsd2/aprsd.conf file. <p>
+
+Version 2.0.8 and later allows you to define up to 64 message destination call signs
+or aliases which will always be gated to RF if "rf-allow yes" has been defined.
+See the example aprsd.conf file for an example of how to use the "msgdest2rf"
+command to enable this feature.
+ 
+For each 3rd party messge delivered to RF the latest position report
+packet of the originating station will also be sent after reformating
+the path in 3rd party format.  The program pulls the posit from the
+history list if it's in there. <p> 
+
+eg: <p>
+
+KE6DJZ>AP0917,KB6TLJ-5,RELAY,WIDE:=3415.99N/11844.34WyAPRS+SA <p>
+
+
+becomes:<p>
+
+}KE6DJZ>AP0917,TCPIP,WA4DSY*:=3415.99N/11844.34WyAPRS+SA  <p>
+
+(assuming "MyCall" is WA4DSY ) <p>
+
+During a series of messages the position packet will only
+be sent with a message every 10 minutes unless the station emits and new one.<p>
+
+
+This server will NOT igate a 3rd party _reformatted_ 
+message from RF to the Internet.  This is strictly one way. <p>
+
+
+Users of unregisterd client programs can send their own
+station-to-station messages to other Internet users.  These
+messages will not go out on the TNC RF channel and the path
+will be modified (TCPIP is changed to TCPXX*) so other
+hubs will know not to send these messages out on their RF
+channels.  Unregistered users cannot Igate packets other
+than their own.  In other words, the ax25 source call 
+in their packets must match their logon call and "TCPIP" must
+be in the path. (TCPIP* or TCPXX* will not work either) <p>
+
+eg; assume N0CLU is unregistered and attempts to send
+the following into the server.<p>
+
+N0CLU>APRS,TCPIP:>TESTING <br>     
+This will be converted to  N0CLU>APRS,TCPXX*:>TESTING
+and gated to other users (but not to RF!) <p>
+
+However... <br>
+W4ZZZ>APRS,TCPIP:>TESTING <br>
+or<br>
+N0CLU>APRS,TCPIP*:>TESTING <br>
+will be deleted and not sent anywhere.<br>
+
+
+Telnet users must provide a user name or call sign
+before any of their data can be relayed to the internet.
+They need to enter "user callsign pass -1" so the server will
+accept the data.  The ax25 FROM call in packets they send
+must match the call sign they loggon with.  If they provide
+a valid password full priviliges are granted since they
+used the keyboard to emulate a client program logon string.
+(Not that anyone would want to do this except for testing) <p>
+
+This server will also accept valid user/password combinations
+for the Linux system it is running on.  These users must be in
+the aprs group.  This group can be added by editing the /etc/group file. <p> 
+
+Note: <p>
+
+This program trusts other versions of itself and APRServe to
+flag the paths of data from unregistered Internet users with "TCPXX*".
+Station to station messages flagged this way will not be sent out on RF.
+The IGATE commands in the aprsd.conf file should specify a remote host port
+which is secure. For IGATES it must be a port which doesn't echo any
+Internet user data, only TNC data.  Full function servers such as APRServe
+and this version (2.x.x) of aprsd will change TCPIP* to TCPXX* in the paths 
+of unregistered users on  all ports. <p>
+
+Users of the current java APRS applet don't log at all and are granted read-only access<p>
+
+<hr>
+</a>
+<a name="msgacks">
+<h3>MESSAGE ACKS   (New in 2.0.7)</h3>
+At the suggestion of Bob Bruninga I have implemented redundent message acks.
+Message packets of the form "WA4DSY>APRS::W4XYZ    :ack{1" will be reformatted to
+3rd party format and sent to the TNC as usual. However, the packet will be repeated
+several times at intervals of 5 (typical) seconds.  The number of repeats and the time
+between them are defined by the "ackrepeats" and "ackrepeattime" statements
+in the aprsd.conf file.  The defaults are 2 repeats at 5 second intervals.
+You can set the repeats to any value from 0 to 9 and the time interval
+from 1 to 30 seconds.  Note the "ackrepeats" value is in additon to the
+first message ack.  You will always send at least one.
+<p>
+<hr>
+</a>
+
+
+
+<a name="validate">
+<h3>USER VALIDATION</h3>
+
+I obtained the user validation code from Steve Dimse K4HG.  He will
+not allow the source code to be released.  To comply I have compiled
+it as a linkable object file which is linked into aprsd at compile time.
+You will find it in aprsd210/lib/validate.o  .  
+<p>
+If the users name and pass code aren't valid the validate module tries the Linux
+pass word validator for the "aprs" group.  It that also fails
+it waits 10 seconds then returns the bad news to aprsd which notifies the user. <p>
+<em> NOTE: aprsd must be run as root for the Linux password validator to work.
+</em>
+However, the APRS user and passwords (from Mac/WinAPRS users) 
+will be properly tested regardless of what user is running aprsd.
+<br>
+<p>
+
+The logon format:  <p>
+
+user <call sign> pass <pass code> vers <Program version><p>
+
+eg: user N0CLU pass 00001 vers MacAPRS 3.0<br> 
+might be sent by a MacAPRS user. <br>
+
+As pass code of -1 means you are an unregistered user,
+not a hacker trying out an bogus password. <p>
+
+You can telent to a port and enter the following,
+assuming your Linux user name is bozo and you password is
+xyzzy and you are part of the aprs group as defined in
+the /etc/group file. <p>
+
+user bozo pass xyzzy <p>
+
+To monitor some server status data you can enter: <p>
+
+user bozo pass xyzzy vers monitor  <p>
+
+The aprs data stream is turned off and "Monitor Mode" is entered.
+Once a minute the server will send a status message to you.<p>
+
+Once you have logged on, ctrl-D will not cause a disconnect.
+You have to use your Telnet escape key then do a quit.
+I had to do this to prevent inadvertant disconnects due to
+possible spurious control codes in some users data. <p>
+
+
+<hr>
+</a>
+
+<a name="abuse">
+<h3>
+KEEPING ABUSERS OUT OF THE SYSTEM (New in 2.1.0)
+</h3>
+You can put the call signs of the users you want to
+restrict in the users.deny file.  The format is 
+the users call sign followed by either
+the letter "L" or "R".  The "L" prevents logons and RF access.
+The "R" prevents only RF access while allowing the user to
+send packets into the aprs network.
+<p>
+<pre>
+user.deny example:
+
+W4EVIL L   <--- Prevents sending of packets into the server or RF
+W4SOB R    <--- Prevents any of his packets from getting on RF
+		even if the came from another igate.
+
+
+NOTE: This file is read every time aprsd needs to check users
+so you will NOT need to restart the server when you change it.
+</pre>
+<hr> 
+</a>
+
+
+<a name="inet2rf">
+<h3>
+Full time gating of selected stations from Internet to RF</h3>
+
+For special events or personal reasons it may be desirable
+to allow the transfer of packets of selected stations from
+the Internet to RF.  Allowing all stations to do this would
+overload the 1200 baud VHF packet frequency and isn't allowed.
+These packets are only sent on RF if they came from the Internet
+and were NOT heard on the local VHF frequency.<p>
+
+There are three "modes" of doing this.  The most permissive
+allows all packets from a selected station to be sent to RF
+in real time.  The second mode only allows position report packets
+to be sent on RF every 14.9 minutes.  This puts much less strain
+on the RF network and is the recommended mode.<p>
+
+The third mode which was new in version 2.0.8 gates 3rd party station
+to station messages to RF full time if the DESTINATION call sign or alias
+is defined in the aprsd.conf file after the msgdest2rf keyword.<p>
+
+
+You select the stations by entering them in the /home/aprsd2/aprsd.conf file.
+Up to 64 stations can be defined. Several can be put on each line.
+The server must be restarted before any changes to aprsd.conf take effect. <p>
+
+
+Examples:<br>
+<pre>
+These stations posits are sent to RF every 15 minutes: 
+posit2rf K4HG-8 N4NEQ-9 
+posit2rf W7LUS-14
+
+All packets from this station are gated to RF full time.
+gate2rf N0CLU-9
+
+
+
+This allows any message addressed to SCOUTS, KIDS or CQGA to go to
+RF even though these "call signs" were not heard locally.
+msgdest2rf SCOUTS KIDS CQGA
+
+</pre>
+
+
+Note: The posits of stations in the "posit2rf" list are sent at 14 second
+intervals.  It takes 14.9 minutes to scan the list of 64 before it repeats.
+The posits are taken from the 30 minute history list.  If no posit
+is available for the station then no data is transmitted.
+ 
+</pre>
+<hr>
+
+</a>
+
+<a name="mic_e">
+<h3>
+
+MIC_E PACKET TRANSLATION </h3>
+
+Compressed TAPR Mic_E packets are converted to standard APRS format
+before being sent anywhere else. I used the Mic_E decoder written by
+Alan Crosswell, N2YGK to do the conversion. This is the same code that's
+in his aprsmon program. <p>
+The unconverted raw Mic_E packets from the local TNC 
+can be observed by telneting to port 14580.
+<hr>
+</a>
+
+
+<a name="aea_tapr">
+<h3>AEA to TAPR conversion </h3>
+
+All packets in the AEA format are converted to TAPR format 
+before any other processing.  Clients never see an AEA
+formatted packet except from the RAW TNC port (14580) if the system
+operator is using an AEA TNC. <p>
+<hr>
+</a>
+
+<a name="udp">
+
+<h3>UDP PORT</h3>
+
+The UDP input port (default 1315) is provided for interface with
+scripts.  Only IP addresses listed in the "trust" line(s) in the
+aprsd.conf file are can send data to this port.  You can enter
+up to 20 trust commands. <p>
+
+Example: <br>
+<pre>
+trust 198.162.50.5 <p>
+</pre>
+You may also provide a subnet mask after the ip address
+to open up an entire sub net. The example below allows
+16 address from 198.162.50.0 to 198.162.50.15 .<p>
+
+Example:<br>
+<pre>
+trust 198.162.50.0 255.255.255.240 <p>
+ </pre>
+The script can format packets to be sent to the TNC for RF transmission
+or TCPIP.  The routing is determined by the "TO-CALL" field.  If it's
+"TNC" the packet goes on on RF via the TNC after the path is striped off. <p>
+
+This goes to the TNC:  WA4DSY>TNC:Data for TNC here <br>
+This goes to TCPIP:    WA4DSY>APRS:Data for the Internet <p>
+
+The complete string including the path goes out on the Internet. <p>
+
+See the file "udp_example" for a sample perl script.  <p>
+<hr>
+</a>
+
+<a name="queries">
+<h3>
+RESPONDING TO QUERIES	(New in 2.1.0)
+</h3>
+The aprsd server will respond to aprs queries as follows:<br>
+
+query:<br>
+WA4DSY>APRS:?IGATE? <br>
+or<br>
+WA4DSY>APRS::IGATE    :?IGATE?{0<br>
+or<br>
+WA4DSY>APRS::aprsd    :?IGATE?{0<br>
+or<br>
+WA4DSY>APRS::aprsdATL :?IGATE?{0 <br>
+
+The first three examples will cause ALL aprsd servers to respond.
+The last will get you a response only from the aprsdATL server.
+
+The server first sends and ack packet the station initiating the query
+then sends response data such as the following example:
+<pre>
+aprsdATL>APRS,TCPIP*::WA4DSY   :WA4DSY Atlanta_GA www.wa4dsy.radio.org sysop@mail.net aprsd 2.1.0 {1
+</pre>
+Most of the data comes from the aprsd.conf file.<br>
+<ul>
+<li> WA4DSY = mycall
+<li> Atlanta_GA = mylocation
+<li> www.wa4dsy.radio.org = host name obtained from Linux OS
+<li> sysop@mail.net = myemail
+<li> aprsd 2.1.0 = internal version number string.
+<li> {1 = sequence number
+</ul>
+
+<hr>
+</a>
+
+<a name="java">
+ 
+<h3>Java Applet</h3>
+
+The JavAPRS applet by Steve Dimse is a completely separate product and
+is not supported by me.	 Surf over to 
+<a href="http://www.aprs.net/javAPRS.html">http://www.aprs.net/javAPRS.html</a> 
+for more information.
+
+<hr>
+</a>
+
+
+<a name="bugs">
+<h3>
+KNOWN BUGS
+</h3>
+<h3>
+Memory Leak
+</h3>
+
+Under RedHat 5.1 this program leaks 8K of memory for each user
+connect/disconnect event.  This appears to be a problem with one or more
+C libraries in the thread creation/destruction code. 
+It has been fixed in 5.2. <p>
+
+To get the fix for 5.1surf over to  
+<a href="ftp://ftp.redhat.com/pub/redhat/upgrades/5.1/i386/">
+ftp://ftp.redhat.com/pub/redhat/upgrades/5.1/i386/ </a><p>
+
+Then get this file: <br>
+
+glibc-2.0.7-19.i386.rpm <p>
+
+The memory leak seems to be fixed in this version.
+To install do:  rpm -U  glibc-2.0.7-19.i386.rpm
+then reboot. You don't need to recompile aprsd! <p>
+
+
+
+<h3>Dup filter problem</h3>
+
+The duplicate filter sometimes fails to detect duplicates.  This
+is an interaction with the quota system.  eg: When a message packet
+"A" is followed by another message packet "B" followed by a duplicate
+of "A" (all within 30 seconds) the second "A" packet will not be
+recognized as a duplicate  because the "B" packet is of the 
+same type (message) and replaced "A" due the quota system 
+allowing only one message packet per user  in the history list.
+Since the first instance of "A" is not present anymore the 
+second "A" is not seen as a duplicate.   This problem
+is not serious enough to require fixing at this time. <p>
+</a>
+<hr>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

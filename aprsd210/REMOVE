@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+pushd .
+cd /home
+echo "Saving aprsd2 directory contents in /home/aprsd2.tgz"
+tar zcvf aprsd2.tgz aprsd2
+popd  >/dev/null
+echo "Deleting files..."
+APRSDIR=/home/aprsd2
+rm $APRSDIR/*
+rmdir $APRSDIR
+rm /etc/rc.d/init.d/aprsd.init
+rm /etc/rc.d/rc3.d/S95aprsd
+rm /etc/rc.d/rc5.d/S95aprsd
+rm /etc/rc.d/rc6.d/K23aprsd
+echo "aprsd removed. Contents of $APRSDIR have been saved in /home/aprsd2.tgz"
+
+exit 0

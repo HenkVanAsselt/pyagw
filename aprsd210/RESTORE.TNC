@@ -1,0 +1,8 @@
+# Place here any TNC commands you want restored after aprsd quits.
+MONITOR OFF
+NEWMODE ON
+ECHO ON
+FLOW ON
+BK ON
+AX ON
+

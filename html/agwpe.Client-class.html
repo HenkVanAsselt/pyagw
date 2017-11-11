@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>agwpe.Client</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="agwpe-module.html">Module&nbsp;agwpe</a> ::
+        Class&nbsp;Client
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="agwpe.Client-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Client</h1><span class="codelink"><a href="agwpe-pysrc.html#Client">source&nbsp;code</a></span><br /><br />
+<pre class="base-tree">
+asyncore.dispatcher --+
+                      |
+                     <strong class="uidshort">Client</strong>
+</pre>
+
+<hr />
+! @brief AGWPE Client @params asyncore.dispatcher base class @returns 
+  Nothing<br /><br />
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">callsign</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">NOCALL</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">host</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">127.0.0.1</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">port</span>=<span class="summary-sig-default">8000</span>)</span><br />
+      ! @brief Intialize the class @param self - @param callsign 
+      Callsign to register @param host IP address of host to connect to 
+      @param port Port number of host to connect to @returns Nothing</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#handle_connect" class="summary-sig-name">handle_connect</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      ! @brief Hanler for the intial connect.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.handle_connect">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#handle_read" class="summary-sig-name">handle_read</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      ! @brief Handler for a read request @param self - @returns 
+      Nothing.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.handle_read">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#writable" class="summary-sig-name">writable</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      ! @brief ??? @param self - @returns The length of the input 
+      buffer</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.writable">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#handle_write" class="summary-sig-name">handle_write</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      ! @brief ??? @param self - @returns Nothing</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.handle_write">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_debuglevel"></a><span class="summary-sig-name">set_debuglevel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">debuglevel</span>)</span><br />
+      ! @brief Set debug level to a given level @param self - @param 
+      debuglevel The new debug level @returns</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.set_debuglevel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#get_version" class="summary-sig-name">get_version</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      ! @brief Get the AGWPE version number @param self - @returns 
+      Nothing.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.get_version">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#get_portinfo" class="summary-sig-name">get_portinfo</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      ! @brief Get the AGWPE port information @param self - @returns 
+      Nothing.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.get_portinfo">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#get_portcapabilities" class="summary-sig-name">get_portcapabilities</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      ! @brief Get the AGWPE port capabilities @param self - @returns 
+      Nothing.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.get_portcapabilities">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="version"></a><span class="summary-sig-name">version</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      ! @brief Return the AGWPE version number @param self - @returns 
+      The version number</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.version">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="register"></a><span class="summary-sig-name">register</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">callsign</span>)</span><br />
+      ! @brief Register the given callsign @param self - @param callsign
+      Callsign to register @returns Nothing</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.register">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="agwpe.Client-class.html#monitor" class="summary-sig-name">monitor</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">on_off</span>=<span class="summary-sig-default">2</span>)</span><br />
+      ! @brief Toggle the monitor @param self - @param on_off Toggle 
+      parameter @returns Nothing</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.monitor">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="heard"></a><span class="summary-sig-name">heard</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">port</span>)</span><br />
+      ! @brief Ask AGEPE for the stations heard on portnumber port 
+      @param self - @param port The portnumber to get the heard info from 
+      @returns Nothing.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="agwpe-pysrc.html#Client.heard">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>asyncore.dispatcher</code></b>:
+      <code>__getattr__</code>,
+      <code>__repr__</code>,
+      <code>accept</code>,
+      <code>add_channel</code>,
+      <code>bind</code>,
+      <code>close</code>,
+      <code>connect</code>,
+      <code>create_socket</code>,
+      <code>del_channel</code>,
+      <code>handle_accept</code>,
+      <code>handle_close</code>,
+      <code>handle_error</code>,
+      <code>handle_expt</code>,
+      <code>handle_expt_event</code>,
+      <code>handle_read_event</code>,
+      <code>handle_write_event</code>,
+      <code>listen</code>,
+      <code>log</code>,
+      <code>log_info</code>,
+      <code>readable</code>,
+      <code>recv</code>,
+      <code>send</code>,
+      <code>set_reuse_addr</code>,
+      <code>set_socket</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>asyncore.dispatcher</code></b>:
+      <code>accepting</code>,
+      <code>addr</code>,
+      <code>closing</code>,
+      <code>connected</code>,
+      <code>debug</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">callsign</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">NOCALL</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">host</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">127.0.0.1</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">port</span>=<span class="sig-default">8000</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  ! @brief Intialize the class @param self - @param callsign Callsign to
+  register @param host IP address of host to connect to @param port Port 
+  number of host to connect to @returns Nothing
+  <dl class="fields">
+    <dt>Overrides:
+      asyncore.dispatcher.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="handle_connect"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">handle_connect</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.handle_connect">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>! @brief Hanler for the intial connect. @param self @returns 
+  Nothing</p>
+  The initial connect is already done in during the initializations.
+  <dl class="fields">
+    <dt>Overrides:
+      asyncore.dispatcher.handle_connect
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="handle_read"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">handle_read</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.handle_read">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  ! @brief Handler for a read request @param self - @returns Nothing. 
+  The data read is stored in self.in_buffer
+  <dl class="fields">
+    <dt>Overrides:
+      asyncore.dispatcher.handle_read
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="writable"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">writable</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.writable">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  ! @brief ??? @param self - @returns The length of the input buffer
+  <dl class="fields">
+    <dt>Overrides:
+      asyncore.dispatcher.writable
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="handle_write"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">handle_write</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.handle_write">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  ! @brief ??? @param self - @returns Nothing
+  <dl class="fields">
+    <dt>Overrides:
+      asyncore.dispatcher.handle_write
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_version"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_version</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.get_version">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  ! @brief Get the AGWPE version number @param self - @returns Nothing. 
+  The version number will be printed
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_portinfo"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_portinfo</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.get_portinfo">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  ! @brief Get the AGWPE port information @param self - @returns 
+  Nothing. The information will be printed
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_portcapabilities"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_portcapabilities</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.get_portcapabilities">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  ! @brief Get the AGWPE port capabilities @param self - @returns 
+  Nothing. The information will be printed
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="monitor"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">monitor</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">on_off</span>=<span class="sig-default">2</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="agwpe-pysrc.html#Client.monitor">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>! @brief Toggle the monitor @param self - @param on_off Toggle 
+  parameter @returns Nothing</p>
+  Send an 'm' frame to turn monitoring on and off. It works like a 
+  toggle switch
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Sat Mar 03 11:01:14 2007
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

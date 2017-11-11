@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+#Example of how to send data into the APRS server
+#via the UDP port from a perl script .
+#NOTE: Running this more than once each 30 seconds
+#will trigger the duplicate filter in aprsd and your
+#packet will be rejected.
+#
+use Socket;
+#$aprsServer = "www.wa4dsy.radio.org";
+$aprsServer = "localhost";
+$port = 1315;
+($d1, $d2, $d3, $d4, $rawserver) = gethostbyname($aprsServer);
+$serveraddr = pack("Sna4x8",2,$port,$rawserver);
+$prototype = getprotobyname('udp');
+socket(SOCKET,2,SOCK_DGRAM,$prototype) || die("No Socket\n");
+
+#Send to the TNC... Note: you must end the string with a NULL 
+send SOCKET, "N0CLU>TNC:>Testing on RF\0" , 0 , $serveraddr;
+#Note that only the data after the ":" is sent to the TNC.
+
+#Send  to the Internet...
+send SOCKET, "N0CLU>APRS:>Testing on TCPIP\0", 0, $serveraddr;
+#Note that the entire string is sent to the internet including
+#the path "N0CLU>APRS:".
+
+close(SOCKET);
+
+
+
+
+
+
+
+
+
+

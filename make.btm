@@ -1,0 +1,10 @@
+echo %1 %2 %3
+goto %1
+goto _eof
+
+goto _eof
+
+:epydoc
+epydoc.py src\*.py
+
+:_eof

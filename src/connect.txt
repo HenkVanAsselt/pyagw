@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Documents and Settings\Administrator\My Documents\proj\pyagw\src\connect.py", line 145, in ?
+    main()
+  File "C:\Documents and Settings\Administrator\My Documents\proj\pyagw\src\connect.py", line 129, in main
+    hosts = get_hosts('hosts.ini')
+  File "C:\Documents and Settings\Administrator\My Documents\proj\pyagw\src\connect.py", line 72, in get_hosts
+    return hostlist
+NameError: global name 'hostlist' is not defined

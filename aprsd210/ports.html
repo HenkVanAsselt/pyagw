@@ -1,0 +1,282 @@
+<HTML>
+<HEAD>
+<TITLE>aprsd TCP port functions</TITLE>
+</HEAD>
+<BODY bgcolor="#f0f0f0" text="#000000"> 
+<HR>
+
+<p>
+<H2> aprsd TCP port functions for versions 2.0.x  Oct 1998</H2>
+
+<p>
+
+All port numbers are defined in /home/aprsd2/aprsd.conf.  If a port is not
+defined there it is inactive.
+
+<h3>Main Port #10151 (or System operator defined)** </h3>
+<ul>
+<li>aprsd.conf key word: mainport
+<li>Function: User access via various aprs clients to all data streams.
+<li>Bidirectional
+<li>echos:
+<ul>
+<li>Internet user data
+<li>Data from other IGATES and hubs
+<li>TNC data
+<li>Internal system status messages
+<li>UDP data
+</ul>
+<li>Sends 30 minute* history of all  data streams when user connects
+
+</ul>
+
+
+<h3>Main Port-NH #10152 (or System operator defined)** </h3>
+<ul>
+<li>aprsd.conf key word: mainport-nh
+<li>Same as Main Port above but <em>doesn't</em> send 30 minute history when user connects.
+</ul>
+
+		
+<h3>Local Port #14579  (or System operator defined) </h3>
+<ul>
+<li>aprsd.conf key word: localport
+<li>Function: User access via various aprs clients to local TNC data only.
+<li>Bidirectional
+<li>echos:
+<ul>
+<li>TNC data
+<li>UDP data
+<li>Internal system status messages
+</ul>
+<li>Sends 30 minute history of TNC data only
+</ul>
+
+<h3>
+Raw TNC Port #14580  (or System operator defined)
+</h3>
+<ul>
+<li>aprsd.conf key word: rawtncport
+<li>Function: User access via various aprs clients to RAW local TNC data only.
+<li>Bidirectional
+<li>echos: TNC data
+<li>No 30 minute history dump.
+</ul>
+Note: This port doesn't reformat the TNC data or
+filter duplicates.  Every packet the TNC hears
+is sent the the user unchanged.
+<p>
+
+<h3>
+		
+Link Port #1313  (or System operator defined)
+</h3>
+<ul>
+<li>aprsd.conf key word: linkport
+<li>Function:  Other hubs such as APRServe connect here 
+to get local TNC data and Internet user data. 
+<li>Unidirectional
+<li>echos:
+<ul>
+<li>TNC data
+<li>Internet user data (from other ports)
+<li>UDP data
+<li>Internal system status messages
+</ul>
+<li>Does NOT send 30 minute history
+<li>Does NOT echo data from other IGATEs
+</ul>
+		
+
+<h3>
+Messsage Port #1314 (or System operator defined)
+</h3>
+<ul>
+<li>aprsd.conf key word: msgport
+<li>Function: Other hubs such as APRServe or aprsd connect here
+			  to get 3rd party station to station messages.
+			  All station to station messages from all data sources
+			  and a corresponding position report are available
+			  on this port.	 All other packets are filtered out.
+			  This is useful for clients that need to conserve
+			  Internet link bandwidth but want access to the
+			  global station to station message stream
+			  for Internet to RF messaging.
+			  			  
+<li>Unidirectional
+<li>echos:
+<ul>
+<li>3rd party staton to station messages from all sources.
+</ul>
+<li>Does NOT send 30 minute history.
+</ul>
+
+<h3>
+UDP Port #1315 or defined by system operator
+</h3>
+<ul>
+<li>aprsd.conf key word: udpport
+<li>Function:  Allows other programs such
+as Perl scripts to send          				
+short packets of data into       				
+the aprs stream or the TNC.      				
+Packets addressed to the TNC     				
+are directed to RF.  All others  				
+go to the Internet. I use it to  				
+inject weather packets from      				
+a Perl script.<br>
+The path data (up to and including the colon) are stripped off before the TNC gets it.
+<br>
+eg: <br>
+WA4DSY>TNC:This data goes to the TNC
+<br>
+WA4DSY>APRS:This whole line goes to the Internet (no path stripping)                   				
+<br>
+				
+<li>Unidirectional (Input only)
+		
+<li>echos:  nothing
+			
+<li>       	security: System operator defines IP addresses
+			  of trusted users. These will usually
+			  be a local host or subnet but could be any host.
+			  				
+</ul>
+<h3>
+IGATE connection ports	
+</h3>			
+These are client ports which connect to distant                		
+IGATEs to harvest their data streams. Connections              		
+are reestablished when they drop.   The system                 		
+operator defines the domain names and optional user/pass logon.		
+If the optional user/pass information is supplied the          		
+server will send out to the distant IGATEs the                 		
+same data provided by port 1313 above.  This is usefull        		
+for those who use a dialup connection without a static IP      		
+address.   Up to 20 distant IGATES can be defined.             		
+(this limit can be increased by editing an recompiling)        		
+                                                               
+<p>
+<hr>
+
+* The 30 minute time is now user definable.
+<br>
+** All ports are optional.  They will not be activated
+   unless a port number is defined in the aprsd.conf file.
+<hr>
+
+
+<h3>REFORMATTING </h3>
+
+
+Mic-E packets are converted to standard APRS format before being
+sent to clients.<p>
+
+Data from AEA TNCs is converted to TAPR format before being sent
+to clients. <p>
+  
+<hr>
+<h3>
+Station to station messages of the 3rd party kind:
+</h3>
+
+This program will reformat and relay aprs 
+station to station messages from the Internet 
+to the TNC for RF transmission under the following
+conditions.
+<p>
+<br>
+If it came from a logged on verified registered user.
+<br>
+ <em>and</em>
+<br> 
+ The originator was not seen on the TNC RF data stream
+ in the past 30 minutes.
+<br> 
+ <em>and</em>
+<br> 
+ The destination HAS been seen on the TNC RF data stream
+ in the past 30 minutes and doesn't have "GATE*" in his path
+ and has been repeated less than 3  times.
+<p> 
+For each 3rd party messge delivered to RF the latest position report
+packet of the originating station will also be sent after reformating
+the path in 3rd party format.  The program pulls the posit from the
+history list.  
+<p>
+eg:
+<br>
+KE6DJZ>AP0917,KB6TLJ-5,RELAY,WIDE:=3415.99N/11844.34WyAPRS+SA
+<br>
+becomes:
+<br>
+}KE6DJZ>AP0917,TCPIP,WA4DSY*:=3415.99N/11844.34WyAPRS+SA
+<br>
+(assuming "MyCall" is WA4DSY )
+<p>
+During a series of messages the position packet will only
+be sent with a message every 10 minutes unless the station emits a new one.
+
+<p>
+This server will NOT igate a 3rd party <em>reformatted</em>
+message from RF to the Internet.  This is strictly one way.
+<p>
+
+Users of unregisterd client programs can send their own
+station-to-station messages to other Internet users.  These
+messages will not go out on the TNC RF channel and the path
+will be modified (TCPIP* is changed to TCPXX*) so other
+hubs will know not to send these messages out on their RF
+channels.  Unregistered users cannot Igate packets other
+than their own.  In other words, the ax25 source call 
+in their packets must match their logon call.
+<p>
+eg; assume N0CLU is unregistered and attempts to send
+the following into the server.
+ <p>
+N0CLU>APRS,TCPIP:>TESTING      
+This will be converted to  N0CLU>APRS,TCPXX*:>TESTING
+and gated to other users (but not to RF ever!)
+<p>
+However...
+W4ZZZ>APRS,TCPIP:>TESTING
+will be deleted and not sent anywhere.
+<p>
+
+Telnet users must provide a user name or call sign
+before any of their data can be relayed to the internet.
+They need to enter "user callsign pass -1" so the server will
+accept the data.  The ax25 FROM call in packets they send
+must match the call sign they loggon with.  If they provide
+a valid password full priviliges are granted since they
+used the keyboard to emulate a client program logon string.
+(Not that anyone would want to do this except for testing)
+<p>
+This server will also accept valid user/password combinations
+for the Linux system it is running on.  These users must be in
+the aprs group.  This group can be added by editing the /etc/group file.  
+See the README for details.
+<p.
+Note: 
+<p>
+This program trusts other versions of itself and APRServe to
+flag the paths of data from unregistered Internet users with "TCPXX*".
+Station to station messages flagged this way will not be sent out on RF.
+The IGATE commands in the aprsd.conf file should specify a remote host port
+which is secure. For IGATES it must be a port which doesn't echo any
+Internet user data, only TNC data.  Full function servers such as APRServe
+and this version (2.x.x) of aprsd will change TCPIP* to TCPXX* in the paths 
+of unregistered users on  all ports.
+
+<p>
+<hr>
+Comments, suggestions and complaints to
+<A HREF="mailto:wa4dsy@wa4dsy.radio.org"> wa4dsy@wa4dsy.radio.org </a> (Dale Heatherington) <br>
+</body>
+</html>
+  
+
+      	
+
+			
+ 

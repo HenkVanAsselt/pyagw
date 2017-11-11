@@ -1,0 +1,8 @@
+# **PLEASE EDIT THIS TO SUIT YOUR LOCAL REQUIRMENTS**
+# Welcome to the WA4DSY APRS Atlanta area server.
+# This server is running under Red Hat Linux 5.?.
+# Direct comments to nobody@NoWhere.net . Type ctrl-D to disconnect.
+
+aprsdATL>JAVA::javaTITLE:Live data from the Atlanta Linux APRS Server
+
+

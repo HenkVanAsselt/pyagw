@@ -1,0 +1,153 @@
+<html lang="en">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name=description content="">
+<meta name=generator content="makeinfo 4.0">
+<link href="http://texinfo.org/" rel=generator-home>
+</head>
+
+<body>
+<p><hr>
+Node:<a name="Top">Top</a>,
+Next:<a rel=next href="#Introduction">Introduction</a>,
+Previous:<a rel=previous href="#Top">Top</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<p>This document will describe my tcpip interface to SV2AGW's Packet Engine.
+
+<ul>
+<li><a href="#Top">Top</a>: 
+<li><a href="#Introduction">Introduction</a>: 
+<li><a href="#Development">Development</a>: 
+</ul>
+
+<p><hr>
+Node:<a name="Introduction">Introduction</a>,
+Next:<a rel=next href="#Development">Development</a>,
+Previous:<a rel=previous href="#Top">Top</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Introduction</h1>
+
+<p>This document will describe my tcpip interface to SV2AGW's Packet Engine.
+
+<p>This excellent piece of software and all information can be downloaded
+from his web site &lt;<code>http://www.raag.org/sv2agw</code>&gt;
+
+<p>I will not describe any functionality of this packet engine, but will concentrate
+on the tcpip interface.
+
+<h1>Description</h1>
+
+<h2>Basic setup</h2>
+
+<p>The agwpe tcp interface consists basically of the following:
+
+<p>The application can talk via the tcp handler to the AGW Packet Engine. 
+Responses from the AGW Packet Engine are stored by the tcp handler in
+a ringbuffer. The application must extract the AGWPE headers and
+following data from the ringbuffer.
+
+<h2>What has the application to do ?</h2>
+
+<p>The application should peform the following actions:
+
+<p>Call agwpe_int(host,port) to initialize the tcp interface. 
+- This function will setup the connection
+- Create a ringbuffer for incoming data
+- Get the AGWPE version number
+- Get the AGEPE port information
+-
+-																   _
+
+<p>Then the application has to register the callsign it will use
+with agwpe_register(callsign)
+
+<p>Then the application can do whatever it wants to do like starting
+the monitor function by calling agwpe_monitor()
+
+<p>The body of the interface is the function agwpe_process(). This function
+will check for incoming agwpe headers and data following these headers.
+
+<h2>What is currently implemented ?</h2>
+
+<p>This process function is very basic at this moment. In fact it can
+only perform the above mentioned functions and print monitor data on the
+standard output.
+
+<p>Good luck,
+
+<p>Henk van Asselt, PA3BTL -  2000-08-04
+
+<p><hr>
+Node:<a name="Development">Development</a>,
+Previous:<a rel=previous href="#Introduction">Introduction</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Development Environment</h1>
+
+<h2>DJGPP</h2>
+
+<p>This interace is written in the DJGPP V2 environment and compiled with the
+GNU C compiler. For all information and downloads, see the following sites:
+&lt;<code>http://www.delorie.com</code>&gt;. 
+&lt;<code>http://www.gnu.org</code>&gt;
+
+<p>The following was downloaded and installed in my environment:
+
+<p>acnf213b.zip	acnf213d.zip	alleg312.zip
+bc103b.zip		bc103d.zip		bnu281d.zip
+bnu2951b.zip	bsh203b.zip		bsh203d.zip
+cpio242b.zip	cpio242d.zip	dfe9532b.zip
+dif271d.zip		dif272b.zip		djdev203.zip
+faq230b.zip		fil316b.zip		fil316d.zip
+find41b.zip		find41d.zip		gcc2952b.zip
+gdb416d.zip		gdb418b.zip		gpp2952b.zip
+grx23.zip		grx23fnt.zip	gwk303d.zip
+gwk304b.zip		lclint-2.5m-w32.zip
+lgp2952b.zip	ls074b4b.zip	ls074b4d.zip
+ls074b4s.zip	m4-14b.zip		m4-14d.zip
+mak377d.zip		mak379b.zip		pdc22.zip
+perl552b.zip	rhide14b.zip	sed302b.zip
+sed302s.zip		shl112b.zip		shl112d.zip
+tcplib-dj200.1.tar.gz			tv1010s.zip
+txi40b.zip		txt20b.zip		txt122d.zip
+
+<h2>GNU standards</h2>
+
+<p>I am trying to follow all GNU standards as described on the the web page
+&lt;<code>http://www.delorie.com/gnu/docs/GNU/standard_toc.html</code>&gt;
+
+<h2>CXREF</h2>
+
+<p>The source code is documented and cross-referenced with the exellent
+cxref utility of Andrew M. Bishop on  &lt;<code>http://www.gedanken.demon.co.uk/</code>&gt;
+I got CXREF only to work in the CYGWIN environment, so I call it from there.
+
+<ul compact>
+</ul>
+
+<h1>Table of Contents</h1>
+<ul>
+<li><a href="#Introduction">Introduction</a>
+<li><a href="#Introduction">Description</a>
+<ul>
+<li><a href="#Introduction">Basic setup</a>
+<li><a href="#Introduction">What has the application to do ?</a>
+<li><a href="#Introduction">What is currently implemented ?</a>
+</ul>
+<li><a href="#Development">Development Environment</a>
+<ul>
+<li><a href="#Development">DJGPP</a>
+<li><a href="#Development">GNU standards</a>
+<li><a href="#Development">CXREF</a>
+</ul>
+</ul>
+
+
+</body></html>
+

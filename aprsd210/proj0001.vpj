@@ -1,0 +1,224 @@
+[COMPILER]
+
+INCLUDEDIRS=%(INCLUDE)
+COMPILE=concur|capture,make %n.obj
+MAKE=concur|capture,make
+DEBUG=,xxgdb [exename-here]
+USER1=concur|capture,
+USER2=,
+
+[FILES]
+/home/wa4dsy/proj/aprsd210/COPYING
+/home/wa4dsy/proj/aprsd210/INIT.TNC
+/home/wa4dsy/proj/aprsd210/INSTALLDAEMON
+/home/wa4dsy/proj/aprsd210/INSTALLPGM
+/home/wa4dsy/proj/aprsd210/Makefile
+/home/wa4dsy/proj/aprsd210/README
+/home/wa4dsy/proj/aprsd210/REMOVE
+/home/wa4dsy/proj/aprsd210/RESTORE.TNC
+/home/wa4dsy/proj/aprsd210/aprsString.cpp
+/home/wa4dsy/proj/aprsd210/aprsString.h
+/home/wa4dsy/proj/aprsd210/aprsd.conf
+/home/wa4dsy/proj/aprsd210/aprsd.cpp
+/home/wa4dsy/proj/aprsd210/aprsd.init
+/home/wa4dsy/proj/aprsd210/aprsd.log
+/home/wa4dsy/proj/aprsd210/constant.h
+/home/wa4dsy/proj/aprsd210/cpqueue.cpp
+/home/wa4dsy/proj/aprsd210/cpqueue.h
+/home/wa4dsy/proj/aprsd210/history.cpp
+/home/wa4dsy/proj/aprsd210/history.h
+/home/wa4dsy/proj/aprsd210/history.txt
+/home/wa4dsy/proj/aprsd210/makedebug
+/home/wa4dsy/proj/aprsd210/makefile
+/home/wa4dsy/proj/aprsd210/mic_e.cpp
+/home/wa4dsy/proj/aprsd210/mic_e.h
+/home/wa4dsy/proj/aprsd210/ports.html
+/home/wa4dsy/proj/aprsd210/ports.txt
+/home/wa4dsy/proj/aprsd210/readme.html
+/home/wa4dsy/proj/aprsd210/serialp.cpp
+/home/wa4dsy/proj/aprsd210/serialp.h
+/home/wa4dsy/proj/aprsd210/udp_example
+/home/wa4dsy/proj/aprsd210/utils.cpp
+/home/wa4dsy/proj/aprsd210/utils.h
+/home/wa4dsy/proj/aprsd210/validate.h
+/home/wa4dsy/proj/aprsd210/welcome.txt
+[STATE]
+SCREEN: 1024 768 2 51 1013 639 0 0 N 0 32 0 44
+CWD: /home/wa4dsy/proj/aprsd210
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/history.cpp"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.13952 CL=21 LE=0 CX=20 CY=2 WI=4 BI=5 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/queryResp.h"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.74 CL=1 LE=0 CX=0 CY=6 WI=4 BI=6 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/user.deny"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.11 CL=19 LE=0 CX=18 CY=2 WI=4 BI=7 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/ports.html"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=0 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=HTML	HM=0
+VIEW: LN=.62 CL=39 LE=0 CX=38 CY=5 WI=4 BI=8 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/INSTALLDAEMON"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.904 CL=38 LE=0 CX=37 CY=15 WI=4 BI=9 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/INSTALLPGM"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.319 CL=16 LE=0 CX=15 CY=17 WI=4 BI=10 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/REMOVE"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.323 CL=24 LE=0 CX=23 CY=16 WI=4 BI=11 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/aprsd2/aprsd.conf"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.233 CL=24 LE=0 CX=23 CY=9 WI=4 BI=13 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/INIT.TNC"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.779 CL=27 LE=0 CX=26 CY=20 WI=4 BI=14 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/utils.cpp"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.0 CL=67 LE=0 CX=66 CY=1 WI=4 BI=15 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/utils.h"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.800 CL=1 LE=0 CX=0 CY=18 WI=4 BI=16 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/history.h"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=4 BI=17 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/mic_e.cpp"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=4 BI=18 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/makefile"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.643 CL=54 LE=0 CX=53 CY=15 WI=4 BI=19 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsd.init"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.265 CL=17 LE=0 CX=16 CY=16 WI=4 BI=20 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsString.h"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.1108 CL=19 LE=0 CX=18 CY=0 WI=4 BI=21 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/cpqueue.cpp"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.3458 CL=3 LE=0 CX=2 CY=15 WI=4 BI=22 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsString.cpp"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.21099 CL=1 LE=0 CX=0 CY=21 WI=4 BI=23 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/README"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.3478 CL=69 LE=0 CX=68 CY=20 WI=4 BI=24 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsddoc.html"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=0 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=HTML	HM=0
+VIEW: LN=.13538 CL=1 LE=0 CX=0 CY=18 WI=4 BI=25 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/serialp.cpp"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.1418 CL=63 LE=0 CX=62 CY=16 WI=4 BI=26 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/welcome.txt"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.251 CL=16 LE=0 CX=15 CY=6 WI=4 BI=27 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/queryResp.cpp"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.1956 CL=31 LE=0 CX=30 CY=25 WI=4 BI=12 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsd.cpp"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.108369 CL=4 LE=0 CX=3 CY=20 WI=4 BI=28 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/constant.h"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.1 CL=43 LE=0 CX=42 CY=2 WI=4 BI=29 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsd.conf"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0
+VIEW: LN=.1878 CL=15 LE=0 CX=14 CY=14 WI=4 BI=30 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/cpqueue.h"
+BI: MA=1 74 1  TABS=1 4  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0
+VIEW: LN=.860 CL=29 LE=0 CX=28 CY=20 WI=4 BI=31 HT=0 HN=0 HF=0 HC=4
+WINDOW: 175 207 685 382 0 0 N  WF=0 WT=10 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/constant.h"
+VIEW: LN=.1 CL=43 LE=0 CX=43 CY=2 WI=25 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 82 683 363 0 0 N  WF=0 WT=22 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsd.conf"
+VIEW: LN=.1878 CL=15 LE=0 CX=15 CY=14 WI=26 BI=30 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 32 683 363 0 0 N  WF=0 WT=29 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/cpqueue.h"
+VIEW: LN=.860 CL=29 LE=0 CX=29 CY=20 WI=27 BI=31 HT=0 HN=0 HF=0 HC=4
+WINDOW: 75 107 685 382 0 0 N  WF=0 WT=6 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/history.cpp"
+VIEW: LN=.13952 CL=21 LE=0 CX=21 CY=2 WI=28 BI=5 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 32 685 291 0 0 N  WF=0 WT=16 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/queryResp.h"
+VIEW: LN=.74 CL=1 LE=0 CX=1 CY=6 WI=29 BI=6 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 32 683 333 0 0 N  WF=0 WT=20 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/user.deny"
+VIEW: LN=.11 CL=19 LE=0 CX=19 CY=2 WI=30 BI=7 HT=0 HN=0 HF=0 HC=4
+WINDOW: 100 132 683 363 0 0 N  WF=0 WT=24 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/ports.html"
+VIEW: LN=.62 CL=39 LE=0 CX=39 CY=5 WI=31 BI=8 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 82 685 291 0 0 N  WF=0 WT=12 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/INSTALLDAEMON"
+VIEW: LN=.904 CL=38 LE=0 CX=38 CY=15 WI=32 BI=9 HT=0 HN=0 HF=0 HC=4
+WINDOW: 100 132 683 363 0 0 N  WF=0 WT=25 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/INSTALLPGM"
+VIEW: LN=.319 CL=16 LE=0 CX=16 CY=17 WI=33 BI=10 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 32 683 363 0 0 N  WF=0 WT=28 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/REMOVE"
+VIEW: LN=.323 CL=24 LE=0 CX=24 CY=16 WI=34 BI=11 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 82 685 330 0 0 N  WF=0 WT=18 "schumacher-clean,15,0"
+BUFFER: BN="/home/aprsd2/aprsd.conf"
+VIEW: LN=.233 CL=24 LE=0 CX=24 CY=9 WI=36 BI=13 HT=0 HN=0 HF=0 HC=4
+WINDOW: 175 207 683 363 0 0 N  WF=0 WT=27 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/INIT.TNC"
+VIEW: LN=.779 CL=27 LE=0 CX=27 CY=20 WI=37 BI=14 HT=0 HN=0 HF=0 HC=4
+WINDOW: 150 182 685 382 0 0 N  WF=0 WT=9 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/utils.cpp"
+VIEW: LN=.0 CL=67 LE=0 CX=67 CY=1 WI=38 BI=15 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 57 683 333 0 0 N  WF=0 WT=21 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/utils.h"
+VIEW: LN=.800 CL=1 LE=0 CX=1 CY=18 WI=39 BI=16 HT=0 HN=0 HF=0 HC=4
+WINDOW: 75 107 685 291 0 0 N  WF=0 WT=13 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/history.h"
+VIEW: LN=.0 CL=1 LE=0 CX=1 CY=1 WI=40 BI=17 HT=0 HN=0 HF=0 HC=4
+WINDOW: 100 132 685 382 0 0 N  WF=0 WT=7 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/mic_e.cpp"
+VIEW: LN=.0 CL=1 LE=0 CX=1 CY=1 WI=41 BI=18 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 57 685 291 0 0 N  WF=0 WT=17 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/makefile"
+VIEW: LN=.643 CL=54 LE=0 CX=54 CY=15 WI=42 BI=19 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 32 685 382 0 0 N  WF=0 WT=11 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsd.init"
+VIEW: LN=.265 CL=17 LE=0 CX=17 CY=16 WI=43 BI=20 HT=0 HN=0 HF=0 HC=4
+WINDOW: 100 132 685 291 0 0 N  WF=0 WT=14 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsString.h"
+VIEW: LN=.1108 CL=19 LE=0 CX=19 CY=0 WI=44 BI=21 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 82 685 382 0 0 N  WF=0 WT=5 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/cpqueue.cpp"
+VIEW: LN=.3458 CL=3 LE=0 CX=3 CY=15 WI=45 BI=22 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 32 685 382 0 0 N  WF=0 WT=3 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsString.cpp"
+VIEW: LN=.21099 CL=1 LE=0 CX=1 CY=21 WI=46 BI=23 HT=0 HN=0 HF=0 HC=4
+WINDOW: 150 182 683 363 0 0 N  WF=0 WT=26 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/README"
+VIEW: LN=.3478 CL=69 LE=0 CX=69 CY=20 WI=47 BI=24 HT=0 HN=0 HF=0 HC=4
+WINDOW: 19 45 926 520 0 0 N  WF=0 WT=2 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsddoc.html"
+VIEW: LN=.13538 CL=1 LE=0 CX=1 CY=18 WI=48 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 157 685 382 0 0 N  WF=0 WT=8 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/serialp.cpp"
+VIEW: LN=.1418 CL=63 LE=0 CX=63 CY=16 WI=49 BI=26 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 57 683 363 0 0 N  WF=0 WT=23 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/welcome.txt"
+VIEW: LN=.251 CL=16 LE=0 CX=16 CY=6 WI=50 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 157 685 291 0 0 N  WF=0 WT=15 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/queryResp.cpp"
+VIEW: LN=.1956 CL=31 LE=0 CX=31 CY=15 WI=35 BI=12 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 57 683 363 0 0 M  WF=0 WT=19 "schumacher-clean,15,0"
+BUFFER: BN="/home/wa4dsy/proj/aprsd210/aprsd.cpp"
+VIEW: LN=.116446 CL=64 LE=0 CX=64 CY=7 WI=51 BI=28 HT=0 HN=0 HF=0 HC=4
+FILEHIST: 9
+/home/wa4dsy/proj/aprsd210/INSTALLDAEMON
+/home/wa4dsy/proj/aprsd210/README
+/home/wa4dsy/proj/aprsd210/INIT.TNC
+/home/wa4dsy/proj/aprsd210/INSTALLPGM
+/home/wa4dsy/proj/aprsd210/REMOVE
+/home/wa4dsy/proj/aprsd210/aprsddoc.html
+/home/aprsd2/aprsd.conf
+/home/wa4dsy/proj/aprsd210/cpqueue.h
+/home/wa4dsy/proj/aprsd210/aprsd.cpp
+BOOKMARK: 3
+^TAG7^ .64875 82 /home/wa4dsy/proj/aprsd210/aprsd.cpp
+^TAG6^ .87653 17 /home/wa4dsy/proj/aprsd210/aprsd.cpp
+^TAG2^ .24206 4 /home/wa4dsy/proj/aprsd210/aprsd.cpp
+PUSHTAG: 0 8

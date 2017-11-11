@@ -1,0 +1,34 @@
+# These TNC cmds will be executed each time you start aprsd.
+# Modify the MYCALL and BTEXT lines with your data.
+# Add/delete any other commands your TNC needs for configuration.
+# The last command "K" puts the TNC in communication mode and must be present.
+# These sample commands are for a Kantronics KPC-3
+# A ctrl-C is sent to the TNC from the server just before these commands are issued.
+# Note: The TNCs user interface must have already been set for 9600 baud.
+#
+#
+INTFACE TERMINAL
+ECHO OFF
+MCOM OFF
+PASSALL OFF
+MRPT ON
+XMITOK ON
+FILTER ON
+CD SOFTWARE
+NEWMODE OFF
+#MYCALL must match MyCall in aprsd.conf
+MYCALL N0CLU
+#You may turn off BTEXT here and use the "tncbeacon" command in aprsd.conf instead.
+BTEXT _0000.00N/00000.00WI APRS Linux Internet Server 
+BEACON EVERY 15
+UNPROTO APRS VIA WIDE,WIDE
+HEADERLN OFF
+DIGI OFF
+HID OFF
+Monitor ON
+K
+#
+# end of file
+
+
+

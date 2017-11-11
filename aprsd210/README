@@ -1,0 +1,97 @@
+aprsd 2.1.0 Linux APRS Server program README
+
+The user documentation for this program is in the file
+aprsddoc.html.  Use your web browser to read it.
+
+
+This release fixes several bugs and adds new features.  There are 
+new commmands in the aprsd.conf file.  If you are upgrading you will
+need to add these to your existing aprsd.conf.	See the example aprsd.conf
+for details.
+
+New commands for aprsd.conf.
+
+NetBeacon <interval> <posit> :  Sends an aprs posit from the server to the internet 
+                                at regular intervals
+	     
+TncBeacon <interval> <posit>  :  Sends an aprs posit to the TNC at regular intervals.
+
+igateMyCall: <yes|no> : You own TNCs packets may be igated or not.
+
+MyEmail <email address> : Email address of system operator used in query response 
+
+TncPktSpacing <time in milliseconds> : Sets the minimum time between packets transmitted by the TNC
+
+
+A new file has been added in your /home/aprsd2 directory.  It's user.deny
+and contains a list of users whom you wish to place restrictions on. 
+For example:
+W4EVIL L    <-- This prevents logon, ie: user is read-only
+W4HACK R    <-- This prevents RF transmission
+
+This version also uses a different /etc/rc.d/init.d/aprsd.init file.
+BE SURE YOUR OLD FILE IS REPLACED BY THE NEW ONE! The ./INSTALLDAEMON
+script will replace it while not touching your configuration files in /home/aprsd2/ .
+
+**Important**
+RedHat 6.0 (2.2 kernel) users will need to compile the source to get
+an executable suited for their system.  Just type "make" in
+the distribution directory. If you don't do this aprsd will seg fault
+and die on the first user connection.
+
+
+----------------------------------------------------------------
+
+
+REVISIONS 2.1.0    6-22-1999
+
+1) Fixed the code so it runs properly as a daemon.  
+   See added function "daemonInit()" in aprsd.cpp.
+   Also modified aprsd.init .
+   To run as a daemon enter: ./aprsd -d 
+   To run as a program enter: ./aprsd
+   
+
+2) Added logic to handle MD5 password encryption in the validate module.
+   Now it works with RedHat 6.0 shadowed MD5 passwords.
+   
+3) Added "#include <errno.h>" statements in history.cpp and aprsd.cpp.
+   Now it now compiles under RedHat 6.0.
+   
+4) Changed logic so messages sent on RF also are sent to other Internet users.
+   I needed to do this so messages to wild card groups such as "SCOUTS"
+   go both to RF and the remainder of the users and igates.
+   
+5) New Feature: The server now responds to the "?IGATE?" query.
+
+6) New Feature: You can put system abusers in the "user.deny" file and
+   deny access to  RF or prevent them from logging on.
+   
+7) New Feature: You can configure the server to ignore  packets which were
+   transmitted from your own TNC.  The previous versions always igated
+   your own TNCs packets. Use the command line "igateMyCall no" in aprsd.conf
+   to turn off igateing of your own TNCs packets.
+   
+8) Fixed bug that caused the history list dump to abort and disconnect user
+   after about 700 items had been sent.
+   
+9) Fixed two bugs in aprsString and raw-user send code.  Now mic_e packets
+   come out in raw format on port 14580 .
+   
+10) Changed the servers status messages to the new format.
+    eg: "aprsdATL>APRS,TCPIP*::USERLIST :Verified user W4HAM has logged on."
+    Note the extra colon after TCPIP* and the lack of a message number on the end
+    to indicate we don't expect an ack.
+    
+11) Fixed speed related problem in SendToAllClients() function that caused
+    overflows of the Internet send queue.  The server can now handle many
+    more users at higher data rates.
+    
+12) Added command "TncPktSpacing" to the aprsd.conf file. This command takes
+    one parameter which is the number of milliseconds between packets sent to the
+    TNC.  Queued packets to be transmitted will be spaced out at least by
+    this number of milliseconds.  The default is 1500 (1.5 seconds).
+
+   
+ 
+

@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# aprsd.init   starts or stops aprsd server.
+#
+#
+# Author:      Dale Heatherington <daheath@ibm.net>
+#
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# See how we were called.
+case "$1" in
+  start)
+   echo  "Starting aprs server daemon. "
+   
+   /home/aprsd2/aprsd -d
+   
+	echo
+	touch /var/lock/subsys/aprsd
+	;;
+  stop)
+   echo  "Stopping aprs server daemon. "
+	killproc aprsd
+	rm -f /var/lock/subsys/aprsd
+	;;
+  *)
+	echo "Usage: aprsd.init {start|stop}"
+	exit 1
+esac
+
+exit 0
+

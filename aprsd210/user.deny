@@ -1,0 +1,7 @@
+#user.deny
+#format: user R|L
+#use "L" to deny login and RF access
+#use "R" to deny RF access but allow login
+#ssid is ignored, eg: W4EVIL and W4EVIL-7 are the same.
+W4EVIL L
+

@@ -1,0 +1,69 @@
+#!/bin/sh
+echo "Installing aprsd as a daemon"
+APRSDIR=/home/aprsd2
+INITDIR=/etc/rc.d/init.d
+SOURCEDIR=$PWD
+INIT_TNC=$PWD'/INIT.TNC'
+RESTORE_TNC=$PWD'/RESTORE.TNC'
+WELCOME_TXT=$PWD'/welcome.txt'
+APRSD_CONF=$PWD'/aprsd.conf'
+APRSD_INIT=$PWD'/aprsd.init'
+USER_DENY=$PWD'/user.deny'
+#
+if [ ! -d $APRSDIR  ]
+then
+ echo "Creating $APRSDIR"
+ mkdir $APRSDIR
+fi
+echo "Copying $PWD/aprsd to $APRSDIR"
+cp aprsd $APRSDIR
+#
+cd $APRSDIR
+if [ ! -f "INIT.TNC" ]
+then
+ echo "Copying $INIT_TNC to $APRSDIR"
+ cp $INIT_TNC .
+fi
+# 
+if [ ! -f "RESTORE.TNC" ]
+then
+  echo "Copying $RESTORE_TNC to $APRSDIR"
+  cp $RESTORE_TNC .
+fi
+#
+if [ ! -f "welcome.txt" ]
+then
+  echo "Copying $WELCOME_TXT to $APRSDIR"
+  cp $WELCOME_TXT .
+fi
+#
+if [ ! -f "aprsd.conf" ]
+then
+  echo "Copying $APRSD_CONF to $APRSDIR"
+  cp $APRSD_CONF .
+fi
+if [ ! -f "user.deny" ]
+then
+  echo "Copying $USER_DENY to $APRSDIR"
+  cp $USER_DENY .
+fi
+#
+cd $INITDIR
+echo "Copying $APRSD_INIT to $INITDIR"
+if [ ! -f "aprsd.init" ]
+then
+  cp $APRSD_INIT .
+  ln -s ../init.d/aprsd.init /etc/rc.d/rc3.d/S95aprsd
+  ln -s ../init.d/aprsd.init /etc/rc.d/rc5.d/S95aprsd
+  ln -s ../init.d/aprsd.init /etc/rc.d/rc6.d/K23aprsd
+else
+  cp $APRSD_INIT .
+fi
+#
+#
+cd $SOURCEDIR
+echo "Install complete"
+echo "To start enter: /etc/rc.d/init.d/aprsd.init start"
+echo "or reboot.  To stop enter: /etc/rc.d/init.d/aprsd.init stop"
+exit 0
+
